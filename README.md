@@ -2,8 +2,8 @@
 
 A new reverse engineering, analysis, and transformation tool.
 
-Uroboros: executable => assembly
-A2C:      assembly   => C
+Uroboros: executable => assembly  
+A2C:      assembly   => C  
 
 ## Docker
 
@@ -23,3 +23,12 @@ python uroboros.py exe-file
 python3 a2c.py asm-file
 
 (see README in the [A2C](a2c) folder for the details.)
+
+
+## Analysis
+
+to be integrated
+
+## Transformation
+
+to be integrated
