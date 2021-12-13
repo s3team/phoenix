@@ -1,5 +1,5 @@
 from test_util import *
-from define import *
+from definition import *
 from inst_template import FixInfo, InstTemplateGenerator
 
 
