@@ -1,0 +1,21 @@
+push op1 >> PUSH($op1?$)
+----
+mov op1,op2 >> $op2?$ = $op1?$;
+----
+sub op1,op2 >> $op2?$ -= $op1?$;
+----
+jmp op1 >> goto $op1?$;
+----
+imul op1,op2 >> $op2?$ *= $op1?$;
+----
+cmp op1,op2 >> UPDATE_EFLAGS($op2?$, $op1?$, CMP);
+----
+jg op1 >> if(ZF==0 && SF==OF) goto $op1?$;
+----
+leave >> LEAVE();
+----
+ret >> return;
+----
+and op1,op2 >> $op2?$ &= $op1?$;
+----
+call op1 >> $op1?$();
