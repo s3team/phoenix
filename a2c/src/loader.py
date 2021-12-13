@@ -1,4 +1,4 @@
-from define import *
+from definition import *
 from program_info import *
 from builder import *
 from util import *

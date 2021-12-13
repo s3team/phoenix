@@ -5,7 +5,7 @@ from loader import *
 from translator import *
 from runtime_info import *
 from builder import *
-from define import *
+from definition import *
 
 c_flags = "-w -no-pie"
 

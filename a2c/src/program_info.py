@@ -1,6 +1,6 @@
 import re
 
-from define import *
+from definition import *
 from register import *
 from runtime_info import RuntimeInfo
 import queue
