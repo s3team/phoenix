@@ -1,6 +1,6 @@
 # A2C
 
-A2C lifts the output from Uroboros to C.
+A2C translates the assembly code output from Uroboros to an analyzable and compilable C code.
 
 ## Requirements
 
@@ -8,11 +8,11 @@ Before using our framework, please make sure that you can build and run [Uroboro
 
 ## Usage
 
-Our tool takes the asm file generated from [Uroboros](../uroboros) as the input. After you get that, you can use our tool as following:
+Our tool takes the asm file generated from [Uroboros](../uroboros) as the input. After you get that, you can use our tool as follows:
 
     python3 a2c.py asm_file_from_urobros [-o/--output <file>]
 
-Then you can find the generated C file at current dicrectory. If you do not specify the name yourself, the default output will be **output.c**. Otherwise, the filename will be **\<file\>.c**. Also, we will compile it back into an executable, **a.out**.
+Then you can find the generated C file at current dicrectory. If you do not specify the name yourself, the default output will be **output.c**. Otherwise, the filename will be **\<file\>.c**. x
 
 ## Directory Structure
 
