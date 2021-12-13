@@ -26,7 +26,7 @@ class TestTranslator(unittest.TestCase):
         t = Translator(template.templates, None, runtime_info)
 
         # Construct Inst
-        with open("../benchmark/Fibonacci2.s") as f:
+        with open("../benchmark/Fac2.s") as f:
         #with open("../benchmark/qsort.s") as f:
         # with open("../benchmark/reverse.s") as f:
             asm = f.read()

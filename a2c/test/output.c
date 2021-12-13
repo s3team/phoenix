@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define __ARCH_INFO__
+
 // define marcos for get sub registers.
 #ifdef __x64__
 #define get_exx(var) \
@@ -189,10 +191,10 @@ int main(int argc, char * argv[]){
 
     memset(EFLAGS, 0, sizeof(EFLAGS));
 
+    // original main function here
     usermain();
 
     free(stack);
-    
     return 0;
 }
 
