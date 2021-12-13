@@ -3,7 +3,7 @@ import re
 
 from test_util import *
 import util
-from define import *
+from definition import *
 from program_info import Operand
 from runtime_info import RuntimeInfo
 
