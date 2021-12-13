@@ -1,5 +1,7 @@
 # A2C
 
+A2C lifts the output from Uroboros to C.
+
 ## Requirements
 
 Before using our framework, please make sure that you can build and run [Uroboros](../uroboros) properly.
@@ -26,7 +28,7 @@ Then you can find the generated C file at current dicrectory. If you do not spec
 │   ├── runtime_info.py
 │   ├── translator.py
 │   └── util.py
-└── template	/
+└── template 
     ├── code_template.c
     └── template_file
 ```
