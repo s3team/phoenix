@@ -1,0 +1,51 @@
+push op1 >>>> PUSH($op1?$);
+----
+mov op1,op2 >>>> $op2?$ = $op1?$;
+----
+sub op1,op2 >>>> $op2?$ -= $op1?$;
+----
+jmp op1 >>>> goto $op1?$;
+----
+imul op1,op2 >>>> $op2?$ *= $op1?$;
+----
+cmp op1,op2 >>>> UPDATE_EFLAGS($op2?$, $op1?$, -);
+----
+jg op1 >>>> if(GET_EFLAGS(ZF) == 0 && GET_EFLAGS(SF) == GET_EFLAGS(OF)) goto $op1?$;
+----
+leave >>>> LEAVE();
+----
+ret >>>>  RETURN(eax);
+----
+and op1,op2 >>>> $op2?$ &= $op1?$;
+----
+call op1 >>>> eax = CALL_FUNC($op1?$);
+----
+add op1,op2 >>>> $op2?$ += $op1?$;
+----
+lea op1,op2 >>>> $op2?$ = &$op1?$;
+----
+jge op1 >>>> if(GET_EFLAGS(SF) == GET_EFLAGS(OF)) goto $op1?$;
+----
+shr op1,op2 >>>> $op2?$ = $op2?$ >> $op1?$;
+----
+jle op1 >>>> if(GET_EFLAGS(ZF) == 1 || GET_EFLAGS(SF) != GET_EFLAGS(OF)) goto $op1?$;
+----
+sar op1 >>>> $op1?$ = (unsigned int)((int)$op1?$ >> 1);
+----
+xor op1,op2 >>>> $op2?$ ^= $op1?$;
+----
+nop >>>> //nop;/
+----
+je op1 >>>> if(GET_EFLAGS(ZF) == 1) goto $op1?$;
+----
+movsbl op1,op2 >>>> *(int *)&$op2?$ = *(char *)&$op1?$;
+----
+movzbl op1,op2 >>>> *(unsigned int *)&$op2?$ = *(unsigned char *)&$op1?$;
+----
+jl op1 >>>> if(GET_EFLAGS(SF) != GET_EFLAGS(OF)) goto $op1?$;
+----
+pop op1 >>>> $op1?$ = POP();
+----
+movb op1,op2 >>>> *(unsigned char *)&$op2?$ = $op1?$;
+----
+jne op1 >>>> if(GET_EFLAGS(ZF) == 0) goto $op1?$;

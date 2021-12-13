@@ -1,0 +1,143 @@
+S_0x8048496:
+push %ebp
+mov %esp,%ebp
+sub $0x10,%esp
+mov 0xc(%ebp),%eax
+lea 0x0(,%eax,0x4),%edx
+mov 0x8(%ebp),%eax
+add %edx,%eax
+mov (%eax),%eax
+mov %eax,-0x4(%ebp)
+mov 0x10(%ebp),%eax
+lea 0x0(,%eax,0x4),%edx
+mov 0x8(%ebp),%eax
+add %edx,%eax
+mov 0xc(%ebp),%edx
+lea 0x0(,%edx,0x4),%ecx
+mov 0x8(%ebp),%edx
+add %ecx,%edx
+mov (%eax),%eax
+mov %eax,(%edx)
+mov 0x10(%ebp),%eax
+lea 0x0(,%eax,0x4),%edx
+mov 0x8(%ebp),%eax
+add %eax,%edx
+mov -0x4(%ebp),%eax
+mov %eax,(%edx)
+nop
+leave
+ret
+
+qsort:
+push %ebp
+mov %esp,%ebp
+sub $0x18,%esp
+mov 0xc(%ebp),%eax
+cmp 0x10(%ebp),%eax
+jge S_0x80485D2
+BB_27:
+mov 0xc(%ebp),%edx
+mov 0x10(%ebp),%eax
+add %edx,%eax
+mov %eax,%edx
+shr $0x1F,%edx
+add %edx,%eax
+sar %eax
+push %eax
+pushl 0xc(%ebp)
+pushl 0x8(%ebp)
+call S_0x8048496
+add $0xC,%esp
+mov 0xc(%ebp),%eax
+mov %eax,-0xc(%ebp)
+mov 0xc(%ebp),%eax
+add $0x1,%eax
+mov %eax,-0x10(%ebp)
+jmp S_0x8048587
+S_0x8048548:
+mov -0x10(%ebp),%eax
+lea 0x0(,%eax,0x4),%edx
+mov 0x8(%ebp),%eax
+add %edx,%eax
+mov (%eax),%edx
+mov 0xc(%ebp),%eax
+lea 0x0(,%eax,0x4),%ecx
+mov 0x8(%ebp),%eax
+add %ecx,%eax
+mov (%eax),%eax
+cmp %eax,%edx
+jge S_0x8048583
+BB_29:
+addl $0x1,-0xc(%ebp)
+pushl -0x10(%ebp)
+pushl -0xc(%ebp)
+pushl 0x8(%ebp)
+call S_0x8048496
+add $0xC,%esp
+S_0x8048583:
+addl $0x1,-0x10(%ebp)
+S_0x8048587:
+mov -0x10(%ebp),%eax
+cmp 0x10(%ebp),%eax
+jle S_0x8048548
+BB_32:
+pushl -0xc(%ebp)
+pushl 0xc(%ebp)
+pushl 0x8(%ebp)
+call S_0x8048496
+add $0xC,%esp
+mov -0xc(%ebp),%eax
+sub $0x1,%eax
+sub $0x4,%esp
+push %eax
+pushl 0xc(%ebp)
+pushl 0x8(%ebp)
+call qsort
+add $0x10,%esp
+mov -0xc(%ebp),%eax
+add $0x1,%eax
+sub $0x4,%esp
+pushl 0x10(%ebp)
+push %eax
+pushl 0x8(%ebp)
+call qsort
+add $0x10,%esp
+jmp S_0x80485D3
+S_0x80485D2:
+nop
+S_0x80485D3:
+leave
+ret
+
+main:
+lea 0x4(%esp),%ecx
+and $0xFFFFFFF0,%esp
+pushl -0x4(%ecx)
+push %ebp
+mov %esp,%ebp
+push %ecx
+sub $0x34,%esp
+movl $0x1,-0x34(%ebp)
+movl $0x5,-0x30(%ebp)
+movl $0x1429C5,-0x2c(%ebp)
+movl $0x21,-0x28(%ebp)
+movl $0x9,-0x24(%ebp)
+movl $0x5A,-0x20(%ebp)
+movl $0x38D,-0x1c(%ebp)
+movl $0x57,-0x18(%ebp)
+movl $0x861F,-0x14(%ebp)
+movl $0x3037,-0x10(%ebp)
+sub $0x4,%esp
+push $0x9
+push $0x0
+lea -0x34(%ebp),%eax
+push %eax
+call qsort
+add $0x10,%esp
+nop
+mov -0x4(%ebp),%ecx
+leave
+lea -0x4(%ecx),%esp
+ret
+
+

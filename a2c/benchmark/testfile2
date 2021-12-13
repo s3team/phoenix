@@ -1,0 +1,1133 @@
+.globl fused_nn_softmax
+.globl fused_multiply_add
+.type   fused_nn_softmax, @function
+.type   fused_multiply_add, @function
+.section .text
+
+deregister_tm_clones:
+
+S_0x6C0:
+lea S_0x204028(%rip),%rdi
+lea S_0x20402F(%rip),%rax
+push %rbp
+sub %rdi,%rax
+mov %rsp,%rbp
+cmp $0xE,%rax
+jbe S_0x6F0
+mov S_0x203FE0(%rip),%rax
+test %rax,%rax
+je S_0x6F0
+pop %rbp
+jmpq *%rax
+nopw 0x0(%rax,%rax,1)
+
+S_0x6F0:
+pop %rbp
+retq
+nopl 0x0(%rax)
+nopw %cs:0x0(%rax,%rax,1)
+
+register_tm_clones:
+
+S_0x700:
+lea S_0x204028(%rip),%rdi
+lea S_0x204028(%rip),%rsi
+push %rbp
+sub %rdi,%rsi
+mov %rsp,%rbp
+sar $0x3,%rsi
+mov %rsi,%rax
+shr $0x3F,%rax
+add %rax,%rsi
+sar %rsi
+je S_0x740
+mov S_0x203FD8(%rip),%rax
+test %rax,%rax
+je S_0x740
+pop %rbp
+jmpq *%rax
+nopw 0x0(%rax,%rax,1)
+
+S_0x740:
+pop %rbp
+retq
+nopl 0x0(%rax)
+nopw %cs:0x0(%rax,%rax,1)
+
+__do_global_dtors_aux:
+cmpb $0x0,S_0x204028(%rip)
+jne S_0x780
+cmpq $0x0,S_0x203FC8(%rip)
+push %rbp
+mov %rsp,%rbp
+je S_0x773
+mov S_0x204020(%rip),%rdi
+callq __cxa_finalize
+
+S_0x773:
+callq S_0x6C0
+pop %rbp
+movb $0x1,S_0x204028(%rip)
+
+S_0x780:
+repz retq
+nopl 0x0(%rax)
+nopw %cs:0x0(%rax,%rax,1)
+
+frame_dummy:
+
+S_0x790:
+lea 0x203df8(%rip),%rdi
+cmpq $0x0,(%rdi)
+jne S_0x7A8
+
+S_0x79D:
+jmpq S_0x700
+nopw 0x0(%rax,%rax,1)
+
+S_0x7A8:
+mov S_0x203FF0(%rip),%rax
+test %rax,%rax
+je S_0x79D
+push %rbp
+mov %rsp,%rbp
+callq *%rax
+pop %rbp
+jmpq S_0x700
+
+fused_multiply_add:
+push %rbp
+push %r15
+push %r14
+push %r13
+push %r12
+push %rbx
+sub $0x18,%rsp
+cmp $0x4,%edx
+jne S_0xB63
+mov (%rsi),%eax
+cmp $0xD,%eax
+ja S_0xB0F
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0xB0F
+mov 0x4(%rsi),%eax
+cmp $0xD,%eax
+ja S_0xB1F
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0xB1F
+mov 0x8(%rsi),%eax
+cmp $0xD,%eax
+ja S_0xB2F
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0xB2F
+mov 0xc(%rsi),%eax
+cmp $0xD,%eax
+ja S_0xB3F
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0xB3F
+mov (%rdi),%rax
+cmpl $0x1,0x8(%rax)
+jne S_0xB73
+cmpl $0x4,0x10(%rax)
+jne S_0xB83
+cmpw $0x1,0x16(%rax)
+jne S_0xB93
+cmpb $0x20,0x15(%rax)
+jne S_0xB93
+cmpb $0x2,0x14(%rax)
+jne S_0xB93
+mov 0x18(%rax),%rcx
+cmpl $0x1,(%rcx)
+jne S_0xBA3
+cmpl $0x1,0x8(%rcx)
+jne S_0xBB3
+cmpl $0x1C,0x10(%rcx)
+jne S_0xBC3
+cmpl $0x1C,0x18(%rcx)
+jne S_0xBD6
+mov 0x8(%rdi),%rbx
+mov 0x10(%rdi),%r12
+mov 0x18(%rdi),%r11
+mov (%rax),%rcx
+mov %rcx,0x10(%rsp)
+mov 0x20(%rax),%r8
+mov 0xc(%rax),%edx
+mov (%rbx),%rcx
+mov %rcx,0x8(%rsp)
+mov 0x18(%rbx),%rbp
+mov 0x20(%rbx),%r13
+mov (%r12),%rcx
+mov 0x18(%r12),%r14
+mov 0x20(%r12),%r15
+mov (%r11),%rdi
+mov 0x18(%r11),%r10
+mov 0x20(%r11),%r9
+test %r8,%r8
+je S_0x91D
+movups (%r8),%xmm0
+movups 0x10(%r8),%xmm1
+shufps $0x88,%xmm1,%xmm0
+pcmpeqd S_0x1860(%rip),%xmm0
+pshufd $0x4E,%xmm0,%xmm1
+pand %xmm0,%xmm1
+pshufd $0xE5,%xmm1,%xmm0
+pand %xmm1,%xmm0
+movd %xmm0,%esi
+test $0x1,%sil
+je S_0xBE9
+
+S_0x91D:
+cmpq $0x0,0x28(%rax)
+jne S_0xBFC
+cmpl $0x3,0x10(%rbx)
+jne S_0xC0F
+cmpw $0x1,0x16(%rbx)
+jne S_0xC22
+cmpb $0x20,0x15(%rbx)
+jne S_0xC22
+cmpb $0x2,0x14(%rbx)
+jne S_0xC22
+cmpl $0x1,0x0(%rbp)
+jne S_0xC35
+cmpl $0x1,0x8(%rbp)
+jne S_0xC48
+cmpl $0x1,0x10(%rbp)
+jne S_0xC5B
+test %r13,%r13
+je S_0x995
+cmpl $0x1,0x0(%r13)
+jne S_0xC6E
+cmpl $0x1,0x8(%r13)
+jne S_0xC6E
+cmpl $0x1,0x10(%r13)
+jne S_0xC6E
+
+S_0x995:
+cmpq $0x0,0x28(%rbx)
+jne S_0xC81
+cmpl $0x1,0x8(%rbx)
+jne S_0xC94
+cmp 0xc(%rbx),%edx
+jne S_0xCA7
+cmpl $0x3,0x10(%r12)
+jne S_0xCBA
+cmpw $0x1,0x16(%r12)
+jne S_0xCCD
+cmpb $0x20,0x15(%r12)
+jne S_0xCCD
+cmpb $0x2,0x14(%r12)
+jne S_0xCCD
+cmpl $0x1,(%r14)
+jne S_0xCE0
+cmpl $0x1,0x8(%r14)
+jne S_0xCF3
+cmpl $0x1,0x10(%r14)
+jne S_0xD06
+test %r15,%r15
+je S_0xA29
+cmpl $0x1,(%r15)
+jne S_0xD19
+cmpl $0x1,0x8(%r15)
+jne S_0xD19
+cmpl $0x1,0x10(%r15)
+jne S_0xD19
+
+S_0xA29:
+cmpq $0x0,0x28(%r12)
+jne S_0xD2C
+cmpl $0x1,0x8(%r12)
+jne S_0xD3F
+cmp 0xc(%r12),%edx
+jne S_0xD52
+cmpl $0x4,0x10(%r11)
+jne S_0xD65
+cmpw $0x1,0x16(%r11)
+jne S_0xD78
+cmpb $0x20,0x15(%r11)
+jne S_0xD78
+cmpb $0x2,0x14(%r11)
+jne S_0xD78
+cmpl $0x1,(%r10)
+jne S_0xD8B
+cmpl $0x1,0x8(%r10)
+jne S_0xD9E
+cmpl $0x1C,0x10(%r10)
+jne S_0xDB1
+cmpl $0x1C,0x18(%r10)
+jne S_0xDC4
+test %r9,%r9
+je S_0xADC
+movups (%r9),%xmm0
+movups 0x10(%r9),%xmm1
+shufps $0x88,%xmm1,%xmm0
+pcmpeqd S_0x1860(%rip),%xmm0
+pshufd $0x4E,%xmm0,%xmm1
+pand %xmm0,%xmm1
+pshufd $0xE5,%xmm1,%xmm0
+pand %xmm1,%xmm0
+movd %xmm0,%eax
+test $0x1,%al
+je S_0xDD7
+
+S_0xADC:
+cmpq $0x0,0x28(%r11)
+jne S_0xDEA
+cmpl $0x1,0x8(%r11)
+jne S_0xDFD
+cmp 0xc(%r11),%edx
+jne S_0xE10
+mov 0x10(%rsp),%rsi
+mov 0x8(%rsp),%rdx
+callq S_0xE30
+xor %eax,%eax
+jmp S_0xB54
+
+S_0xB0F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x18C7(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB1F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1959(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB2F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x19EB(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB3F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1A7D(%rip),%rdi
+
+S_0xB4D:
+callq *(%rax)
+mov $0xFFFFFFFF,%eax
+
+S_0xB54:
+add $0x18,%rsp
+pop %rbx
+pop %r12
+pop %r13
+pop %r14
+pop %r15
+pop %rbp
+retq
+
+S_0xB63:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1880(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB73:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B0F(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB83:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B46(%rip),%rdi
+jmp S_0xB4D
+
+S_0xB93:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B97(%rip),%rdi
+jmp S_0xB4D
+
+S_0xBA3:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1C51(%rip),%rdi
+jmp S_0xB4D
+
+S_0xBB3:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1CB0(%rip),%rdi
+jmp S_0xB4D
+
+S_0xBC3:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1D0F(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xBD6:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1D6F(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xBE9:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1DCF(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xBFC:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1E94(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC0F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1F04(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC22:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1F55(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC35:
+mov S_0x203FE8(%rip),%rax
+lea S_0x200F(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC48:
+mov S_0x203FE8(%rip),%rax
+lea S_0x206E(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC5B:
+mov S_0x203FE8(%rip),%rax
+lea S_0x20CD(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC6E:
+mov S_0x203FE8(%rip),%rax
+lea S_0x212C(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC81:
+mov S_0x203FE8(%rip),%rax
+lea S_0x21C9(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xC94:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2239(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xCA7:
+mov S_0x203FE8(%rip),%rax
+lea S_0x22A2(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xCBA:
+mov S_0x203FE8(%rip),%rax
+lea S_0x230D(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xCCD:
+mov S_0x203FE8(%rip),%rax
+lea S_0x235E(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xCE0:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2418(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xCF3:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2477(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD06:
+mov S_0x203FE8(%rip),%rax
+lea S_0x24D6(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD19:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2535(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD2C:
+mov S_0x203FE8(%rip),%rax
+lea S_0x25D2(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD3F:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2642(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD52:
+mov S_0x203FE8(%rip),%rax
+lea S_0x26AB(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD65:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2716(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD78:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2767(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD8B:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2821(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xD9E:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2880(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xDB1:
+mov S_0x203FE8(%rip),%rax
+lea S_0x28DF(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xDC4:
+mov S_0x203FE8(%rip),%rax
+lea S_0x293F(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xDD7:
+mov S_0x203FE8(%rip),%rax
+lea S_0x299F(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xDEA:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2A64(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xDFD:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2AD4(%rip),%rdi
+jmpq S_0xB4D
+
+S_0xE10:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2B3D(%rip),%rdi
+jmpq S_0xB4D
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+S_0xE30:
+movss (%rdx),%xmm0
+movss (%rcx),%xmm1
+shufps $0x0,%xmm0,%xmm0
+shufps $0x0,%xmm1,%xmm1
+mov $0xFFFFFFFFFFFFF3C0,%rax
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+S_0xE50:
+movups 0xc40(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc40(%rdi,%rax,1)
+movups 0xc50(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc50(%rdi,%rax,1)
+movups 0xc60(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc60(%rdi,%rax,1)
+movups 0xc70(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc70(%rdi,%rax,1)
+movups 0xc80(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc80(%rdi,%rax,1)
+movups 0xc90(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xc90(%rdi,%rax,1)
+movups 0xca0(%rsi,%rax,1),%xmm2
+mulps %xmm0,%xmm2
+addps %xmm1,%xmm2
+movups %xmm2,0xca0(%rdi,%rax,1)
+add $0x70,%rax
+jne S_0xE50
+retq
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+fused_nn_softmax:
+push %rax
+cmp $0x2,%edx
+jne S_0x10D8
+mov (%rsi),%eax
+cmp $0xD,%eax
+ja S_0x10B1
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0x10B1
+mov 0x4(%rsi),%eax
+cmp $0xD,%eax
+ja S_0x10C1
+mov $S_0x2098,%ecx
+bt %eax,%ecx
+jae S_0x10C1
+mov (%rdi),%rcx
+cmpl $0x1,0x8(%rcx)
+jne S_0x10E8
+cmpl $0x4,0x10(%rcx)
+jne S_0x10F8
+cmpw $0x1,0x16(%rcx)
+jne S_0x1108
+cmpb $0x20,0x15(%rcx)
+jne S_0x1108
+cmpb $0x2,0x14(%rcx)
+jne S_0x1108
+mov 0x18(%rcx),%rax
+cmpl $0x1,(%rax)
+jne S_0x1118
+cmpl $0x1,0x8(%rax)
+jne S_0x1128
+cmpl $0x1C,0x10(%rax)
+jne S_0x1138
+cmpl $0x1C,0x18(%rax)
+jne S_0x1148
+mov 0x8(%rdi),%r10
+mov (%rcx),%rdi
+mov 0x20(%rcx),%rax
+mov 0xc(%rcx),%edx
+mov (%r10),%rsi
+mov 0x18(%r10),%r9
+mov 0x20(%r10),%r8
+test %rax,%rax
+je S_0xFED
+movups (%rax),%xmm0
+movups 0x10(%rax),%xmm1
+shufps $0x88,%xmm1,%xmm0
+pcmpeqd S_0x1860(%rip),%xmm0
+pshufd $0x4E,%xmm0,%xmm1
+pand %xmm0,%xmm1
+pshufd $0xE5,%xmm1,%xmm0
+pand %xmm1,%xmm0
+movd %xmm0,%eax
+test $0x1,%al
+je S_0x115B
+
+S_0xFED:
+cmpq $0x0,0x28(%rcx)
+jne S_0x116E
+cmpl $0x4,0x10(%r10)
+jne S_0x1181
+cmpw $0x1,0x16(%r10)
+jne S_0x1194
+cmpb $0x20,0x15(%r10)
+jne S_0x1194
+cmpb $0x2,0x14(%r10)
+jne S_0x1194
+cmpl $0x1,(%r9)
+jne S_0x11A7
+cmpl $0x1,0x8(%r9)
+jne S_0x11BA
+cmpl $0x1C,0x10(%r9)
+jne S_0x11CD
+cmpl $0x1C,0x18(%r9)
+jne S_0x11E0
+test %r8,%r8
+je S_0x1088
+movups (%r8),%xmm0
+movups 0x10(%r8),%xmm1
+shufps $0x88,%xmm1,%xmm0
+pcmpeqd S_0x1860(%rip),%xmm0
+pshufd $0x4E,%xmm0,%xmm1
+pand %xmm0,%xmm1
+pshufd $0xE5,%xmm1,%xmm0
+pand %xmm1,%xmm0
+movd %xmm0,%eax
+test $0x1,%al
+je S_0x11F3
+
+S_0x1088:
+cmpq $0x0,0x28(%r10)
+jne S_0x1206
+cmpl $0x1,0x8(%r10)
+jne S_0x1219
+cmp 0xc(%r10),%edx
+jne S_0x122C
+callq S_0x1240
+xor %eax,%eax
+pop %rcx
+retq
+
+S_0x10B1:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2BED(%rip),%rdi
+jmp S_0x10CF
+
+S_0x10C1:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2C7D(%rip),%rdi
+
+S_0x10CF:
+callq *(%rax)
+mov $0xFFFFFFFF,%eax
+pop %rcx
+retq
+
+S_0x10D8:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2BA8(%rip),%rdi
+jmp S_0x10CF
+
+S_0x10E8:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B0F(%rip),%rdi
+jmp S_0x10CF
+
+S_0x10F8:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B46(%rip),%rdi
+jmp S_0x10CF
+
+S_0x1108:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1B97(%rip),%rdi
+jmp S_0x10CF
+
+S_0x1118:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1C51(%rip),%rdi
+jmp S_0x10CF
+
+S_0x1128:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1CB0(%rip),%rdi
+jmp S_0x10CF
+
+S_0x1138:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1D0F(%rip),%rdi
+jmp S_0x10CF
+
+S_0x1148:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1D6F(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x115B:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1DCF(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x116E:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1E94(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x1181:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2D0D(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x1194:
+mov S_0x203FE8(%rip),%rax
+lea S_0x1F55(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x11A7:
+mov S_0x203FE8(%rip),%rax
+lea S_0x200F(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x11BA:
+mov S_0x203FE8(%rip),%rax
+lea S_0x206E(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x11CD:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2D5E(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x11E0:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2DBE(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x11F3:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2E1E(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x1206:
+mov S_0x203FE8(%rip),%rax
+lea S_0x21C9(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x1219:
+mov S_0x203FE8(%rip),%rax
+lea S_0x2239(%rip),%rdi
+jmpq S_0x10CF
+
+S_0x122C:
+mov S_0x203FE8(%rip),%rax
+lea S_0x22A2(%rip),%rdi
+jmpq S_0x10CF
+nop
+
+S_0x1240:
+push %rbp
+push %r15
+push %r14
+push %r13
+push %r12
+push %rbx
+sub $0x68,%rsp
+mov %edx,%r14d
+mov %rsi,%r15
+mov %rdi,%r13
+mov S_0x203FD0(%rip),%rbx
+mov $S_0xC40,%edx
+mov $0x1,%edi
+mov %r14d,%esi
+mov $0x2,%ecx
+mov $0x20,%r8d
+callq *(%rbx)
+mov %rax,%rbp
+mov $S_0xC40,%edx
+mov $0x1,%edi
+mov %r14d,%esi
+mov $0x2,%ecx
+mov $0x20,%r8d
+callq *(%rbx)
+mov %rax,%r12
+mov $0xFFFFFFFFFFFFF3C0,%rax
+movaps S_0x1870(%rip),%xmm0
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+S_0x12B0:
+movups 0xc40(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc40(%rbp,%rax,1)
+movups 0xc50(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc50(%rbp,%rax,1)
+movups 0xc60(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc60(%rbp,%rax,1)
+movups 0xc70(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc70(%rbp,%rax,1)
+movups 0xc80(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc80(%rbp,%rax,1)
+movups 0xc90(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xc90(%rbp,%rax,1)
+movups 0xca0(%r13,%rax,1),%xmm1
+movaps %xmm0,%xmm2
+maxps %xmm1,%xmm2
+movups %xmm2,0xca0(%rbp,%rax,1)
+add $0x70,%rax
+jne S_0x12B0
+mov $0xFFFFFFFFFFFFF3C0,%rbx
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+nop
+
+S_0x1370:
+movups 0xc40(%r13,%rbx,1),%xmm1
+movups 0xc40(%rbp,%rbx,1),%xmm0
+subps %xmm0,%xmm1
+movaps %xmm1,(%rsp)
+movups 0xc50(%rbp,%rbx,1),%xmm0
+movaps %xmm0,0x30(%rsp)
+movups 0xc60(%rbp,%rbx,1),%xmm0
+movaps %xmm0,0x20(%rsp)
+movups 0xc70(%rbp,%rbx,1),%xmm0
+movaps %xmm0,0x10(%rsp)
+movaps %xmm1,%xmm0
+shufps $0xE7,%xmm1,%xmm0
+callq expf@plt
+movaps %xmm0,0x40(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x40(%rsp),%xmm0
+movaps %xmm0,0x40(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x50(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x50(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x40(%rsp),%xmm1
+movups %xmm1,0xc40(%rbp,%rbx,1)
+movups 0xc50(%r13,%rbx,1),%xmm0
+subps 0x30(%rsp),%xmm0
+movaps %xmm0,(%rsp)
+shufps $0xE7,%xmm0,%xmm0
+callq expf@plt
+movaps %xmm0,0x30(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x30(%rsp),%xmm0
+movaps %xmm0,0x30(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x40(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x40(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x30(%rsp),%xmm1
+movups %xmm1,0xc50(%rbp,%rbx,1)
+movups 0xc60(%r13,%rbx,1),%xmm0
+subps 0x20(%rsp),%xmm0
+movaps %xmm0,(%rsp)
+shufps $0xE7,%xmm0,%xmm0
+callq expf@plt
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x20(%rsp),%xmm0
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x30(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x30(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x20(%rsp),%xmm1
+movups %xmm1,0xc60(%rbp,%rbx,1)
+movups 0xc70(%r13,%rbx,1),%xmm0
+subps 0x10(%rsp),%xmm0
+movaps %xmm0,(%rsp)
+shufps $0xE7,%xmm0,%xmm0
+callq expf@plt
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x10(%rsp),%xmm0
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x20(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x10(%rsp),%xmm1
+movups %xmm1,0xc70(%rbp,%rbx,1)
+movups 0xc80(%rbp,%rbx,1),%xmm0
+movups 0xc80(%r13,%rbx,1),%xmm1
+subps %xmm0,%xmm1
+movaps %xmm1,(%rsp)
+movaps %xmm1,%xmm0
+shufps $0xE7,%xmm1,%xmm0
+callq expf@plt
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x10(%rsp),%xmm0
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x20(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x10(%rsp),%xmm1
+movups %xmm1,0xc80(%rbp,%rbx,1)
+movups 0xc90(%rbp,%rbx,1),%xmm0
+movups 0xc90(%r13,%rbx,1),%xmm1
+subps %xmm0,%xmm1
+movaps %xmm1,(%rsp)
+movaps %xmm1,%xmm0
+shufps $0xE7,%xmm1,%xmm0
+callq expf@plt
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x10(%rsp),%xmm0
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x20(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x10(%rsp),%xmm1
+movups %xmm1,0xc90(%rbp,%rbx,1)
+movups 0xca0(%rbp,%rbx,1),%xmm0
+movups 0xca0(%r13,%rbx,1),%xmm1
+subps %xmm0,%xmm1
+movaps %xmm1,(%rsp)
+movaps %xmm1,%xmm0
+shufps $0xE7,%xmm1,%xmm0
+callq expf@plt
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+movhlps %xmm0,%xmm0
+callq expf@plt
+unpcklps 0x10(%rsp),%xmm0
+movaps %xmm0,0x10(%rsp)
+movaps (%rsp),%xmm0
+callq expf@plt
+movaps %xmm0,0x20(%rsp)
+movaps (%rsp),%xmm0
+shufps $0xE5,%xmm0,%xmm0
+callq expf@plt
+movaps 0x20(%rsp),%xmm1
+unpcklps %xmm0,%xmm1
+unpcklpd 0x10(%rsp),%xmm1
+movups %xmm1,0xca0(%rbp,%rbx,1)
+add $0x70,%rbx
+jne S_0x1370
+mov $0xFFFFFFFFFFFFF3C0,%rax
+xorps %xmm0,%xmm0
+
+S_0x16A0:
+movups 0xc40(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc40(%r12,%rax,1)
+movups 0xc50(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc50(%r12,%rax,1)
+movups 0xc60(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc60(%r12,%rax,1)
+movups 0xc70(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc70(%r12,%rax,1)
+movups 0xc80(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc80(%r12,%rax,1)
+movups 0xc90(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xc90(%r12,%rax,1)
+movups 0xca0(%rbp,%rax,1),%xmm1
+addps %xmm0,%xmm1
+movups %xmm1,0xca0(%r12,%rax,1)
+add $0x70,%rax
+jne S_0x16A0
+mov $0xFFFFFFFFFFFFF3C0,%rax
+nop
+nop
+nop
+
+S_0x1740:
+movups 0xc40(%rbp,%rax,1),%xmm0
+movups 0xc40(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc40(%r15,%rax,1)
+movups 0xc50(%rbp,%rax,1),%xmm0
+movups 0xc50(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc50(%r15,%rax,1)
+movups 0xc60(%rbp,%rax,1),%xmm0
+movups 0xc60(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc60(%r15,%rax,1)
+movups 0xc70(%rbp,%rax,1),%xmm0
+movups 0xc70(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc70(%r15,%rax,1)
+movups 0xc80(%rbp,%rax,1),%xmm0
+movups 0xc80(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc80(%r15,%rax,1)
+movups 0xc90(%rbp,%rax,1),%xmm0
+movups 0xc90(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xc90(%r15,%rax,1)
+movups 0xca0(%rbp,%rax,1),%xmm0
+movups 0xca0(%r12,%rax,1),%xmm1
+divps %xmm1,%xmm0
+movups %xmm0,0xca0(%r15,%rax,1)
+add $0x70,%rax
+jne S_0x1740
+mov S_0x203FC0(%rip),%rbx
+mov $0x1,%edi
+mov %r14d,%esi
+mov %r12,%rdx
+callq *(%rbx)
+mov (%rbx),%rax
+mov $0x1,%edi
+mov %r14d,%esi
+mov %rbp,%rdx
+add $0x68,%rsp
+pop %rbx
+pop %r12
+pop %r13
+pop %r14
+pop %r15
+pop %rbp
+jmpq *%rax
+
