@@ -7,7 +7,7 @@ A2C:      assembly   => C
 
 ## exe2c.sh
 
-This script runs inside the docke.
+This script runs inside the docker (see the next section for the build instruction below).
 It combines Uroboros and A2C for translating EXE to ASM and then to C.
 It also compiles and runs the output C code.
 
