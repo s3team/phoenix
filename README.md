@@ -5,6 +5,15 @@ A new reverse engineering, analysis, and transformation tool.
 Uroboros: executable => assembly  
 A2C:      assembly   => C  
 
+## exe2c.sh
+
+This script runs inside the docke.
+It combines Uroboros and A2C for translating EXE to ASM and then to C.
+It also compiles and runs the output C code.
+
+It walks through the whole work flow:
+C ---(gcc)--> EXE --(uroboros)--> ASM --(a2c)--> C --(gcc)--> EXE
+
 ## Docker
 
 Uroboros is available as a docker image. 
