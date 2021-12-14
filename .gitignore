@@ -143,3 +143,7 @@ cython_debug/
 .vscode/
 c_header/
 
+# For Demo
+*.c
+*.s
+*.exe
